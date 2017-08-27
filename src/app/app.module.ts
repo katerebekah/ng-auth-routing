@@ -1,11 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { SubpageComponent } from './subpage.component';
 import { OtherpageComponent } from './otherpage.component';
+
+import { AuthGuard } from './security/auth.guard';
+import { ConfigService } from './security/config.service';
+import { SecurityService } from './security/security.service';
 
 @NgModule({
   declarations: [
@@ -15,9 +20,14 @@ import { OtherpageComponent } from './otherpage.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpModule
   ],
-  providers: [],
+  providers: [ 
+    AuthGuard,
+    SecurityService,
+    ConfigService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
