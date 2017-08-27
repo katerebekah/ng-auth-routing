@@ -18,7 +18,8 @@ export class SecurityService {
     config: Config;
     url: string;
 
-    getToken(): Promise<Token>{
+    loadUrl(): Promise<Token>{
+        console.log("calling loadURL");
         return this.configService
             .getConfig()
             .then((config) => {
@@ -28,12 +29,14 @@ export class SecurityService {
                     .then((token) => {
                         this.token = token.json();
                         this.url = this.config.url + this.token.token;
+                        console.log("the url is " + this.url);
                         return this.token;
                     })
             });
     }
 
     getList() : Promise<Array<ListItem>> {
+        console.log("getting List for home page");
         return this.http.get('./../' + this.url + '.json')
             .toPromise()
             .then((list) => {

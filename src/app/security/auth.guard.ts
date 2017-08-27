@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate, CanLoad, CanActivateChild {
         console.log(route.url);
         console.log("can activate");
         return this.securityService
-            .getToken()
+            .loadUrl()
             .then((token) => {
                 if (token){
                     return true;
@@ -19,10 +19,16 @@ export class AuthGuard implements CanActivate, CanLoad, CanActivateChild {
             })
     }
 
-    canActivateChild(router: ActivatedRouteSnapshot, route: RouterStateSnapshot): boolean {
+    canActivateChild(router: ActivatedRouteSnapshot, route: RouterStateSnapshot): Promise<boolean> {
         console.log(route.url);
         console.log("can activate child");
-        return true;
+        return this.securityService
+            .loadUrl()
+            .then((token) => {
+                if (token){
+                    return true;
+                }
+            })
     }
 
     canLoad(): boolean {

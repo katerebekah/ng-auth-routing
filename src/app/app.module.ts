@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,6 +26,7 @@ import { SecurityService } from './security/security.service';
   providers: [ 
     AuthGuard,
     SecurityService,
+    { provide: APP_INITIALIZER, useFactory: (secService: SecurityService) => () => { secService.loadUrl(); },  deps: [SecurityService], multi: true  },
     ConfigService
   ],
   bootstrap: [AppComponent]
