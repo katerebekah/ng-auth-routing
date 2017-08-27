@@ -44,3 +44,9 @@ export class SecurityService {
             });
     }
 }
+
+export function securityFactory(securityService: SecurityService) {
+  return () => {
+    return securityService.loadUrl();
+  };
+}

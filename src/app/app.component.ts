@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 
 import { SecurityService } from './security/security.service';
 
@@ -9,10 +9,10 @@ import { ListItem } from './list/listitem';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterViewInit {
   constructor(private securityService: SecurityService){}
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.securityService.getList()
       .then((list) => {
         this.list = list;
